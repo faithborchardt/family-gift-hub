@@ -494,6 +494,197 @@ $("navAdd").onclick=newGift;
 $("navBudget").onclick=()=>show("budgetView");
 changeOccasion();
 </script>
+<style>
+/* Remove emoji decorations from every theme */
+.hero::before,
+.hero::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Give the backgrounds a cleaner finish */
+.hero {
+  padding-top: 48px;
+  border-bottom: 4px solid var(--accent);
+}
+.hero h1 {
+  position: relative;
+  z-index: 1;
+}
+
+/* Extended family directory */
+.family-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+}
+.family-card {
+  background: #fffdf8;
+  color: var(--text);
+  text-align: left;
+  border: 1px solid #e4d7c3;
+  border-radius: 16px;
+  padding: 17px;
+}
+.family-card strong {
+  display: block;
+  font: 700 19px Georgia,serif;
+}
+.family-card small {
+  display: block;
+  margin-top: 8px;
+  color: #68665f;
+}
+</style>
+
+<script>
+/* Individual extended-family gift boards */
+const familySection = document.createElement("section");
+familySection.id = "familyDirectory";
+familySection.className = "view";
+familySection.innerHTML = `
+  <button class="subbutton" id="familyBack">
+    ← All boards
+  </button>
+  <h2 class="sectiontitle">Extended Family</h2>
+  <p class="muted">
+    A special gift board and budget for every person.
+  </p>
+  <button id="familyAdd">+ Add Family Member</button>
+  <div class="family-grid" id="familyCards"
+       style="margin-top:18px"></div>
+`;
+document.querySelector(".content").append(familySection);
+
+document.getElementById("familyBack").onclick =
+  () => show("home");
+
+function familyMembers() {
+  return state().people
+    .map((person,index) => ({person,index}))
+    .filter(item =>
+      item.person.name !== "Extended Family" &&
+      (item.person.extended === true ||
+       item.index >= 6)
+    );
+}
+
+function renderFamilyDirectory() {
+  const area = document.getElementById("familyCards");
+  area.replaceChildren();
+
+  const members = familyMembers();
+
+  if (!members.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent =
+      "No family members added yet. Add your first person!";
+    area.append(empty);
+  }
+
+  members.forEach(({person,index}) => {
+    const card = document.createElement("button");
+    card.className = "family-card";
+
+    const name = document.createElement("strong");
+    name.textContent = person.name;
+
+    const budget = document.createElement("small");
+    budget.textContent =
+      money(purchased(person.name)) +
+      " of " + money(person.budget) + " spent";
+
+    card.append(name,budget);
+    card.onclick = () => {
+      selected = index;
+      show("board");
+    };
+    area.append(card);
+  });
+}
+
+function openFamilyDirectory() {
+  show("familyDirectory");
+  renderFamilyDirectory();
+}
+
+function addExtendedMember() {
+  const name = prompt("Family member's name?");
+  if (!name || !name.trim()) return;
+
+  const clean = name.trim();
+  if (state().people.some(p =>
+    p.name.toLowerCase() === clean.toLowerCase()
+  )) {
+    alert("This person already has a board.");
+    return;
+  }
+
+  const raw = prompt("Gift budget for " + clean + " ($)", "50");
+  if (raw === null) return;
+  const budget = Number(raw);
+
+  if (raw.trim() === "" ||
+      !Number.isFinite(budget) || budget < 0) {
+    alert("Please enter a valid budget.");
+    return;
+  }
+
+  state().people.push({
+    name: clean,
+    budget,
+    extended: true,
+    photo: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500"
+  });
+
+  save();
+  renderFamilyDirectory();
+}
+
+document.getElementById("familyAdd").onclick =
+  addExtendedMember;
+
+/* Keep the existing home screen, but group
+   extended relatives into their own directory */
+const originalRenderHome = renderHome;
+
+renderHome = function() {
+  originalRenderHome();
+
+  const cards = Array.from(
+    document.getElementById("boards").children
+  );
+
+  state().people.forEach((person,index) => {
+    const card = cards[index];
+    if (!card) return;
+
+    if (person.name === "Extended Family") {
+      card.onclick = openFamilyDirectory;
+      const title = card.querySelector("strong");
+      if (title) title.textContent = "Extended Family";
+      const detail = card.querySelector("small");
+      if (detail) {
+        detail.textContent =
+          familyMembers().length + " individual boards";
+      }
+    } else if (person.extended || index >= 6) {
+      card.style.display = "none";
+    }
+  });
+};
+
+/* Add new people inside Extended Family */
+document.getElementById("addPerson").onclick =
+  openFamilyDirectory;
+
+/* The Boards tab returns to the main directory */
+document.getElementById("navBoards").onclick =
+  () => show("home");
+
+show("home");
+</script>
 </body>
 </html>
 
