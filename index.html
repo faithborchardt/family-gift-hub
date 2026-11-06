@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Family Gift Hub</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f8f4ec;color:#243b30;font-family:Arial,sans-serif}
+header{background:#123e30;color:white;padding:32px 20px;text-align:center}
+h1{font-family:Georgia,serif;font-size:30px;margin:12px 0}
+header p{color:#e6d7b4;font-size:13px}
+main{padding:18px;max-width:650px;margin:auto}
+.card{background:white;border-radius:17px;padding:18px;margin-bottom:15px;box-shadow:0 3px 12px #0000000a}
+h2{font-family:Georgia,serif;font-size:21px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.person{background:#f0e9dd;border-radius:14px;padding:20px 8px;text-align:center;cursor:pointer}
+.person span{font-size:35px;display:block;margin-bottom:10px}
+button{background:#174c38;color:white;border:0;border-radius:10px;padding:12px;font-weight:bold;cursor:pointer}
+input,select{width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ddd;border-radius:10px}
+nav{position:sticky;bottom:0;background:white;display:flex;justify-content:space-around;padding:14px;border-top:1px solid #eee}
+nav button{background:none;color:#174c38}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header>
+<div>✦ THE FAMILY GIFT HUB ✦</div>
+<h1>🎄 The Christmas List</h1>
+<p>Little wishes, beautiful surprises</p>
+<select id="occasion" onchange="changeTheme()">
+<option>Christmas</option>
+<option>Birthday</option>
+<option>Anniversary</option>
+<option>Baby Shower</option>
+</select>
+</header>
+<main>
+<section id="home">
+<div class="card">
+<h2>Our Gift Budget</h2>
+<h1>$2,000</h1>
+<p>Family Christmas Planner</p>
+</div>
+<h2>Family Gift Boards</h2>
+<div class="grid" id="people"></div>
+</section>
+<section id="list" class="hidden">
+<h2 id="personTitle"></h2>
+<div id="gifts"></div>
+<button onclick="show('add')">+ Add Gift</button>
+</section>
+<section id="add" class="hidden">
+<div class="card">
+<h2>Add a Gift 🎁</h2>
+<input id="giftName" placeholder="Gift name">
+<input id="giftPrice" type="number" placeholder="Price">
+<input id="giftLink" placeholder="Product URL">
+<select id="recipient"></select>
+<button onclick="saveGift()">Save Gift</button>
+</div>
+</section>
+<section id="budget" class="hidden">
+<div class="card">
+<h2>Budget Planner</h2>
+<p>Budget: $2,000</p>
+<p id="spent"></p>
+</div>
+</section>
+</main>
+<nav>
+<button onclick="show('home')">⌂ Home</button>
+<button onclick="show('list')">♡ Lists</button>
+<button onclick="show('add')">＋ Add</button>
+<button onclick="show('budget')">$ Budget</button>
+</nav>
+<script>
+let people=["Patrick","Charles","Joseph","Matthew","Extended Family"];
+let gifts=JSON.parse(localStorage.getItem("gifts")||"[]");
+let selected="Patrick";
+function show(page){
+document.querySelectorAll("main section").forEach(x=>x.classList.add("hidden"));
+document.getElementById(page).classList.remove("hidden");
+if(page==="list")renderGifts();
+if(page==="budget")renderBudget();
+}
+function renderPeople(){
+document.getElementById("people").innerHTML=people.map((p,i)=>
+`<div class="person" onclick="openPerson(${i})"><span>${["🎮","⚡","🧸","❤️","🎁"][i]}</span>${p}</div>`).join("");
+document.getElementById("recipient").innerHTML=people.map(p=>`<option>${p}</option>`).join("");
+}
+function openPerson(i){selected=people[i];show("list")}
+function renderGifts(){
+document.getElementById("personTitle").textContent=selected+"'s Wishlist";
+const area=document.getElementById("gifts");
+area.replaceChildren();
+gifts.filter(g=>g.person===selected).forEach(g=>{
+const card=document.createElement("div");
+card.className="card";
+const title=document.createElement("h3");
+title.textContent=g.name;
+const price=document.createElement("p");
+price.textContent="$"+g.price;
+card.append(title,price);
+if(/^https?:\/\//i.test(g.link)){
+const a=document.createElement("a");
+a.href=g.link;a.target="_blank";a.rel="noopener noreferrer";
+a.textContent="View Product";card.append(a);
+}
+area.append(card);
+});
+}
+function saveGift(){
+let name=document.getElementById("giftName").value.trim();
+let price=Number(document.getElementById("giftPrice").value);
+if(!name||!Number.isFinite(price)||price<0){alert("Enter a valid gift and price");return}
+gifts.push({name,price,link:document.getElementById("giftLink").value,person:document.getElementById("recipient").value});
+localStorage.setItem("gifts",JSON.stringify(gifts));
+selected=document.getElementById("recipient").value;
+document.getElementById("giftName").value="";
+show("list");
+}
+function renderBudget(){
+let total=gifts.reduce((a,g)=>a+Number(g.price),0);
+document.getElementById("spent").textContent="Gift ideas total: $"+total.toFixed(2);
+}
+function changeTheme(){
+let occasion=document.getElementById("occasion").value;
+document.querySelector("header h1").textContent=
+({Christmas:"🎄 The Christmas List",Birthday:"🎂 Birthday Wishes",Anniversary:"❤️ Anniversary Gifts","Baby Shower":"🍼 Baby Shower"})[occasion];
+document.querySelector("header").style.background=
+({Christmas:"#123e30",Birthday:"#79538d",Anniversary:"#773e50","Baby Shower":"#668574"})[occasion];
+}
+renderPeople();
+show("home");
+</script>
+</body>
+</html>
