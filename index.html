@@ -685,6 +685,142 @@ document.getElementById("navBoards").onclick =
 
 show("home");
 </script>
+<style>
+/* CHRISTMAS MAKEOVER — visual changes only */
+
+/* Christmas styles apply only when no other
+   occasion class is selected. */
+.app:not(.birthday):not(.anniversary):not(.baby) {
+  --ink: #123c2b;
+  --accent: #c5a05c;
+  --paper: #fbf5e9;
+  --edge: #123c2b;
+}
+
+.app:not(.birthday):not(.anniversary):not(.baby) .hero {
+  min-height: 355px;
+  padding: 105px 18px 35px;
+  background:
+    linear-gradient(180deg,
+      rgba(4,37,23,.45),
+      rgba(4,48,30,.91)),
+    url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200")
+    center / cover;
+  border-bottom: 3px solid #cba65c;
+}
+
+/* Christmas greenery and warm lights */
+.app:not(.birthday):not(.anniversary):not(.baby) .hero::before {
+  content: "";
+  display: block !important;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 112px;
+  background:
+    radial-gradient(circle at 9% 15%,#ffe3a2 0 3px,transparent 6px),
+    radial-gradient(circle at 24% 27%,#ffe3a2 0 3px,transparent 7px),
+    radial-gradient(circle at 43% 10%,#ffe3a2 0 3px,transparent 7px),
+    radial-gradient(circle at 68% 25%,#ffe3a2 0 3px,transparent 7px),
+    radial-gradient(circle at 89% 14%,#ffe3a2 0 3px,transparent 7px),
+    linear-gradient(180deg,#092b20cc,transparent);
+  filter: drop-shadow(0 0 5px #e9bb68);
+  pointer-events: none;
+}
+
+/* Velvet ribbon made with CSS, not emoji */
+.app:not(.birthday):not(.anniversary):not(.baby) .hero::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  width: 86px;
+  height: 48px;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse at center,
+      #5c0e19 0 9%,
+      #b32336 11% 20%,
+      transparent 22%),
+    linear-gradient(145deg,
+      transparent 11%,
+      #8d1326 13% 38%,
+      #cf3548 45%,
+      transparent 49%),
+    linear-gradient(35deg,
+      transparent 51%,
+      #bd263a 55% 78%,
+      #76101d 90%,
+      transparent 92%);
+  filter: drop-shadow(0 3px 5px #0007);
+  pointer-events: none;
+}
+
+.app:not(.birthday):not(.anniversary):not(.baby) .hero h1 {
+  font-family: Georgia,serif;
+  font-size: clamp(38px,9vw,57px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -1px;
+  color: #fff5df;
+  text-shadow: 0 3px 15px #0008;
+  margin: 20px 0 13px;
+}
+
+.app:not(.birthday):not(.anniversary):not(.baby) .hero .eyebrow {
+  color: #f3dfb1;
+  letter-spacing: 2.5px;
+}
+
+.app:not(.birthday):not(.anniversary):not(.baby) .hero select {
+  background: #fff9ed;
+  color: #193a2d;
+  border: 1px solid #d7ba7c;
+  box-shadow: 0 5px 16px #0003;
+}
+
+/* Warm ivory area beneath header */
+.app:not(.birthday):not(.anniversary):not(.baby) .content {
+  background:
+    radial-gradient(ellipse at 0% 12%,#d8c9a422,transparent 35%),
+    radial-gradient(ellipse at 100% 65%,#c1ad8622,transparent 32%),
+    #fbf5e9;
+  min-height: 65vh;
+}
+
+.app:not(.birthday):not(.anniversary):not(.baby) .budget {
+  background: linear-gradient(135deg,#fffdf7,#f6ead5);
+  border: 1px solid #d7b87a;
+  box-shadow: 0 9px 24px #4e361b19;
+}
+
+.app:not(.birthday):not(.anniversary):not(.baby) .sectiontitle {
+  color: #123c2b;
+}
+
+.app:not(.birthday):not(.anniversary):not(.baby) .tile,
+.app:not(.birthday):not(.anniversary):not(.baby) .gift {
+  background: #fffcf6;
+  border: 1px solid #d7c19b;
+  box-shadow: 0 5px 15px #2c21191a;
+}
+
+.app:not(.birthday):not(.anniversary):not(.baby) .tile img {
+  height: 125px;
+}
+
+.app:not(.birthday):not(.anniversary):not(.baby) .nav {
+  background: #fffcf7;
+  border-top: 1px solid #dfcba7;
+}
+
+@media(max-width:400px) {
+  .app:not(.birthday):not(.anniversary):not(.baby) .hero {
+    min-height: 330px;
+    padding-top: 94px;
+  }
+}
+</style>
 </body>
 </html>
 
