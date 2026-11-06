@@ -1,280 +1,500 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Family Gift Hub</title>
+<title>Our Family Gift Hub</title>
 <style>
-:root{--green:#173d30;--gold:#bc9955;--cream:#faf6ee;--red:#8d2735}
+:root{
+--ink:#143c2e;--accent:#cda04e;--paper:#fff9ee;
+--edge:#143b2c;--text:#26372c;
+--hero:url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200')
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--cream);color:#26392f;font-family:Arial,sans-serif}
-header{background:linear-gradient(#123528d9,#123528ed),url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200') center/cover;color:white;padding:26px 16px 32px;text-align:center}
-.eyebrow{font-size:11px;letter-spacing:3px;color:#e5c98c}
-h1,h2,h3{font-family:Georgia,serif}
-h1{font-size:34px;margin:12px 0 6px}
-header p{font-size:13px;color:#e6dbc2}
-main{max-width:760px;margin:auto;padding:18px 15px 90px}
-.hero{background:#fff;border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 4px 20px #24392a10}
-.small{font-size:12px;color:#7b7d70}
-.money{font-family:Georgia,serif;font-size:30px;margin:8px 0}
-.progress{height:9px;background:#eae6db;border-radius:20px;overflow:hidden}
-.progress div{height:100%;background:var(--gold);width:0%;transition:.2s}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.person{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 15px #24392a12;cursor:pointer}
-.person img{width:100%;height:145px;object-fit:cover;display:block}
-.person .info{padding:12px}
-.person h3{margin:0 0 5px;font-size:18px}
-.person p{font-size:12px;color:#777;margin:0}
-button{border:0;border-radius:12px;padding:12px 15px;background:var(--green);color:white;font-weight:bold;cursor:pointer}
-button.secondary{background:#eae4d7;color:var(--green)}
-button.red{background:var(--red)}
-button.smallbtn{padding:8px 10px;font-size:12px}
-input,select{width:100%;padding:13px;margin:7px 0 14px;border:1px solid #dedbd1;border-radius:12px;background:white;font-size:15px}
-label{font-size:12px;font-weight:bold}
-.panel{background:white;padding:20px;border-radius:18px;margin:12px 0}
-.giftgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.gift{background:white;border-radius:16px;overflow:hidden;box-shadow:0 3px 14px #00000010}
-.gift img{width:100%;height:170px;object-fit:cover;background:#eee}
-.gift .info{padding:12px}
-.gift h3{font-size:16px;margin:0 0 8px}
-.gift p{font-size:13px;margin:6px 0}
-.gift a{font-size:12px;color:var(--green)}
-.gift button{margin-top:8px;width:100%}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#fff;padding:12px 5px max(12px,env(safe-area-inset-bottom));box-shadow:0 -3px 16px #00000012;z-index:5}
-nav button{background:transparent;color:var(--green);font-size:12px;padding:8px}
-.hide{display:none}
-.sectiontitle{margin:24px 0 14px}
-.banner{background:#f0e7d6;border-radius:15px;padding:14px;margin:15px 0;font-size:13px}
-@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}.giftgrid{grid-template-columns:repeat(3,1fr)}}
+body{margin:0;background:var(--edge);color:var(--text);font:15px/1.4 system-ui,-apple-system,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:12px;padding:10px 13px;background:var(--ink);color:white;font-weight:650}
+.app{max-width:760px;margin:auto;min-height:100vh;background:var(--paper);box-shadow:0 0 50px #0002;position:relative;padding-bottom:90px}
+.hero{position:relative;min-height:340px;padding:65px 18px 30px;text-align:center;color:white;overflow:hidden;background:linear-gradient(#092c20aa,#092c20dd),var(--hero) center/cover}
+.hero:before{content:'✦ ✧ ✦';position:absolute;top:8px;left:0;right:0;letter-spacing:20px;color:#ffda8a;font-size:25px}
+.hero:after{content:'🎀';position:absolute;top:12px;left:12px;font-size:45px}
+.eyebrow{font-size:11px;letter-spacing:2.6px;font-weight:750}
+.hero h1{font:italic 46px/1.05 Georgia,serif;margin:24px 0 14px;text-shadow:0 2px 12px #0008}
+.hero p{margin:0 0 19px;font-size:13px}
+.hero select{border:0;background:#fff8ed;color:#242b22;border-radius:25px;padding:11px 25px;max-width:250px;width:100%;font-weight:700}
+.content{padding:0 16px 25px;margin-top:-8px;position:relative}
+.budget{background:linear-gradient(135deg,#fffdf6,#f5e8d0);border:1px solid #e6d6b6;border-radius:22px;padding:18px 20px;box-shadow:0 7px 24px #0002;margin-bottom:18px}
+.label{font-size:11px;letter-spacing:1.2px;font-weight:800}
+.budget h2{font:35px Georgia,serif;margin:5px 0 9px}
+.flex{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.muted{font-size:12px;color:#706e64}
+.bar{height:10px;background:#e8d9c0;border-radius:20px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);border-radius:20px}
+.sectiontitle{font:700 26px Georgia,serif;margin:20px 0 13px}
+.boards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.tile,.gift{background:#fffdf8;border:1px solid #e4d7c3;border-radius:15px;overflow:hidden;box-shadow:0 3px 9px #0001}
+.tile{padding:0;text-align:left;color:inherit;display:block;width:100%}
+.tile img,.gift img{display:block;width:100%;height:115px;object-fit:cover;background:#ede3d2}
+.tile .detail,.gift .detail{padding:9px}
+.tile strong{display:block;font:700 15px Georgia,serif}
+.tile small{display:block;font-size:11px;color:#65675f;margin-top:4px}
+.subbutton{background:#eed8b2;color:#342c1f;font-size:12px;padding:8px 11px}
+.view{display:none}
+.view.active{display:block}
+.panel{background:#fffdf9;border:1px solid #e7d8bf;border-radius:17px;padding:17px;margin:15px 0}
+.field{display:block;margin:12px 0;font-size:12px;font-weight:700}
+.field input,.field select{display:block;width:100%;margin-top:6px;padding:12px;border:1px solid #d6cbb9;border-radius:11px;background:white;color:#242c23}
+.gifts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.gift img{height:160px}
+.gift h3{font:700 16px Georgia,serif;margin:3px 0}
+.gift p{margin:5px 0;font-size:13px}
+.gift a{color:var(--ink);font-size:12px;word-break:break-word}
+.gift button{font-size:12px;padding:8px;margin:8px 5px 0 0}
+.empty{padding:25px 10px;text-align:center;color:#737269;background:#fff8ec;border-radius:15px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:760px;background:#fffdf8;border-top:1px solid #dfd4c2;display:grid;grid-template-columns:repeat(4,1fr);padding:9px 5px max(12px,env(safe-area-inset-bottom));z-index:10}
+.nav button{background:transparent;color:var(--ink);font-size:12px;padding:7px 2px}
+.note{font-size:12px;color:#65665d;padding:15px 2px}
+.birthday{
+--ink:#6737a1;--accent:#f0a826;--paper:#fff9e9;--edge:#f5b744;
+--hero:url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200')
+}
+.birthday .hero{background:linear-gradient(#fff5e3b8,#fff3dbb8),var(--hero) center/cover;color:#69359a}
+.birthday .hero:before{content:'🎈 🎊 🎈 🎉 🎈';letter-spacing:6px}
+.birthday .hero:after{content:'🎈';font-size:50px}
+.birthday .hero h1{text-shadow:0 2px #fff}
+.birthday .budget{background:linear-gradient(135deg,#fff,#fff0cf)}
+.anniversary{
+--ink:#8c5422;--accent:#c78b35;--paper:#f6ecdc;--edge:#624329;
+--hero:url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1200')
+}
+.anniversary .hero{background:linear-gradient(#3e241d8c,#3e241db8),var(--hero) center/cover}
+.anniversary .hero:before{content:'✦ ✧ ✦ ✧ ✦';letter-spacing:12px}
+.anniversary .hero:after{content:'🕯️'}
+.baby{
+--ink:#496b4a;--accent:#86a77a;--paper:#f4f1e6;--edge:#8da98c;
+--hero:url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=1200')
+}
+.baby .hero{background:linear-gradient(#f5f0e1bb,#eae8d5e0),var(--hero) center/cover;color:#29472f}
+.baby .hero h1{text-shadow:0 1px 12px #fff}
+.baby .hero:before{content:'☁︎ ✧ ☁︎ ✧ ☁︎';letter-spacing:8px;color:#668668}
+.baby .hero:after{content:'🧸'}
+@media(min-width:600px){
+.tile img{height:160px}
+.gift img{height:220px}
+.hero{min-height:365px}
+.boards{gap:15px}
+}
+@media(max-width:350px){
+.boards{grid-template-columns:repeat(2,1fr)}
+.hero h1{font-size:38px}
+}
 </style>
 </head>
 <body>
-<header>
-<div class="eyebrow">✦ OUR FAMILY GIFT HUB ✦</div>
-<h1 id="heading">🎄 Christmas Wishes</h1>
-<p>Little wishes. Beautiful surprises.</p>
-<select id="occasion" onchange="setTheme()" style="max-width:210px;background:#fff9;color:#173d30;border:1px solid #ffffff77">
-<option>Christmas</option>
-<option>Birthday</option>
-<option>Anniversary</option>
-<option>Baby Shower</option>
-</select>
-</header>
-<main>
-<section id="home">
-<div class="hero">
-<div class="small">OUR FAMILY GIFT BUDGET</div>
-<div class="row">
-<div class="money" id="totalBudget">$2,000</div>
-<button class="secondary smallbtn" onclick="editTotal()">Edit</button>
-</div>
-<div class="progress"><div id="totalBar"></div></div>
-<p class="small" id="totalSpent"></p>
-</div>
-<div class="row">
-<h2 class="sectiontitle">Our Gift Boards</h2>
-<button class="smallbtn" onclick="addPerson()">+ Person</button>
-</div>
-<div class="grid" id="people"></div>
-<div class="banner">🎀 Your gift ideas stay saved in this browser. Family sharing and private accounts are coming in a later version.</div>
-</section>
+<div class="app" id="app">
+  <header class="hero">
+    <div class="eyebrow">✦ OUR FAMILY GIFT HUB ✦</div>
+    <h1 id="occasionTitle">Christmas Wishes</h1>
+    <p id="occasionSubtitle">Little wishes. Beautiful surprises.</p>
+    <select id="occasionSelect" aria-label="Choose occasion">
+      <option value="Christmas">Christmas</option>
+      <option value="Birthday">Birthday</option>
+      <option value="Anniversary">Anniversary</option>
+      <option value="Baby Shower">Baby Shower</option>
+    </select>
+  </header>
 
-<section id="board" class="hide">
-<button class="secondary smallbtn" onclick="show('home')">← All boards</button>
-<h2 id="boardTitle"></h2>
-<div class="panel">
-<div class="row"><span class="small">Recipient budget</span><button class="secondary smallbtn" onclick="editBudget()">Edit</button></div>
-<div class="money" id="personBudget"></div>
-<div class="progress"><div id="personBar"></div></div>
-<p class="small" id="personSpent"></p>
-</div>
-<div class="row">
-<h2>Gift Ideas</h2>
-<button class="smallbtn" onclick="newGift()">+ Add Gift</button>
-</div>
-<div class="giftgrid" id="giftGrid"></div>
-</section>
+  <main class="content">
+    <section id="home" class="view active">
+      <div class="budget">
+        <div class="label">OUR FAMILY GIFT BUDGET</div>
+        <div class="flex">
+          <h2 id="homeBudget">$2,000</h2>
+          <button class="subbutton" id="editTotal">Edit</button>
+        </div>
+        <div class="bar"><div class="fill" id="homeFill"></div></div>
+        <p class="muted" id="homeSpent"></p>
+      </div>
 
-<section id="add" class="hide">
-<button class="secondary smallbtn" onclick="show('board')">← Back</button>
-<div class="panel">
-<h2>Add a Little Wish 🎁</h2>
-<label>Who is this for?</label>
-<select id="recipient"></select>
-<label>Gift name</label>
-<input id="giftName" placeholder="e.g. LEGO set">
-<label>Price ($)</label>
-<input id="giftPrice" type="number" min="0" step=".01" placeholder="29.99">
-<label>Shopping link</label>
-<input id="giftLink" type="url" placeholder="https://...">
-<label>Image link (optional)</label>
-<input id="giftImage" type="url" placeholder="https://...jpg">
-<button style="width:100%" onclick="saveGift()">Save Gift ♡</button>
-</div>
-</section>
+      <div class="flex">
+        <h2 class="sectiontitle">Our Gift Boards</h2>
+        <button class="subbutton" id="addPerson">+ Person</button>
+      </div>
+      <div class="boards" id="boards"></div>
+      <p class="note">Your gift ideas are currently saved on this device. Shared family accounts and private surprises will come in a future update.</p>
+    </section>
 
-<section id="budget" class="hide">
-<h2>Our Christmas Budget</h2>
-<div class="panel">
-<div class="money" id="budgetTotal"></div>
-<div class="progress"><div id="budgetBar"></div></div>
-<p id="budgetSummary"></p>
+    <section id="board" class="view">
+      <button class="subbutton" id="backHome">← All boards</button>
+      <h2 class="sectiontitle" id="boardName">Gift Board</h2>
+      <div class="budget">
+        <div class="label">RECIPIENT BUDGET</div>
+        <div class="flex">
+          <h2 id="recipientBudget">$150</h2>
+          <button class="subbutton" id="editRecipientBudget">Edit</button>
+        </div>
+        <div class="bar"><div class="fill" id="recipientFill"></div></div>
+        <p class="muted" id="recipientSpent"></p>
+      </div>
+      <div class="flex">
+        <h2 class="sectiontitle">Gift Ideas</h2>
+        <button class="subbutton" id="addGiftFromBoard">+ Add Gift</button>
+      </div>
+      <div class="gifts" id="gifts"></div>
+    </section>
+
+    <section id="add" class="view">
+      <button class="subbutton" id="backBoard">← Back</button>
+      <div class="panel">
+        <h2 class="sectiontitle">Add a Little Wish 🎁</h2>
+        <form id="giftForm">
+          <label class="field">Who is this for?
+            <select id="giftRecipient" required></select>
+          </label>
+          <label class="field">Gift name
+            <input id="giftName" placeholder="e.g. LEGO set" required>
+          </label>
+          <label class="field">Price ($)
+            <input id="giftPrice" type="number" min="0" step=".01" placeholder="29.99" required>
+          </label>
+          <label class="field">Shopping link (optional)
+            <input id="giftLink" type="url" placeholder="https://...">
+          </label>
+          <label class="field">Photo link (optional)
+            <input id="giftImage" type="url" placeholder="https://...">
+          </label>
+          <button type="submit" style="width:100%">Save Gift ♡</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="budgetView" class="view">
+      <h2 class="sectiontitle" id="budgetHeading">Our Christmas Budget</h2>
+      <div class="budget">
+        <div class="label">TOTAL OCCASION BUDGET</div>
+        <h2 id="budgetAmount">$2,000</h2>
+        <div class="bar"><div class="fill" id="budgetFill"></div></div>
+        <p class="muted" id="budgetSpent"></p>
+      </div>
+      <div id="budgetRows"></div>
+    </section>
+  </main>
+
+  <nav class="nav" aria-label="Main navigation">
+    <button id="navHome">⌂<div>Home</div></button>
+    <button id="navBoards">♡<div>Boards</div></button>
+    <button id="navAdd">＋<div>Add Gift</div></button>
+    <button id="navBudget">$<div>Budget</div></button>
+  </nav>
 </div>
-<div id="budgetPeople"></div>
-</section>
-</main>
-<nav>
-<button onclick="show('home')">⌂ Home</button>
-<button onclick="show('board')">♡ Boards</button>
-<button onclick="newGift()">＋ Add Gift</button>
-<button onclick="show('budget')">$ Budget</button>
-</nav>
 <script>
-const defaultPeople=[
-{name:"Patrick",budget:150,photo:"https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500"},
-{name:"Charles",budget:150,photo:"https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=500"},
-{name:"Joseph",budget:150,photo:"https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500"},
-{name:"Matthew",budget:150,photo:"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500"},
-{name:"Me",budget:150,photo:"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500"},
-{name:"Extended Family",budget:500,photo:"https://images.unsplash.com/photo-1512909006721-3d6018887383?w=500"}
+const $ = id => document.getElementById(id);
+const KEY = "familyGiftHubV3";
+const defaults = [
+  {name:"Patrick",budget:150,photo:"https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500"},
+  {name:"Charles",budget:150,photo:"https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=500"},
+  {name:"Joseph",budget:150,photo:"https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500"},
+  {name:"Matthew",budget:150,photo:"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500"},
+  {name:"Me",budget:150,photo:"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500"},
+  {name:"Extended Family",budget:500,photo:"https://images.unsplash.com/photo-1512909006721-3d6018887383?w=500"}
 ];
-function read(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}}
-let people=read("hubPeople",defaultPeople);
-let gifts=read("hubGifts",[]);
-let total=read("hubTotal",2000);
-let selected=0;
-let occasion="Christmas";
-function persist(){
-localStorage.setItem("hubPeople",JSON.stringify(people));
-localStorage.setItem("hubGifts",JSON.stringify(gifts));
-localStorage.setItem("hubTotal",JSON.stringify(total));
+const occasions = {
+  Christmas:{title:"Christmas Wishes",subtitle:"Little wishes. Beautiful surprises.",className:"",budget:2000},
+  Birthday:{title:"Birthday Wishes",subtitle:"Balloons, streamers & birthday magic!",className:"birthday",budget:500},
+  Anniversary:{title:"Anniversary Wishes",subtitle:"Celebrating love and little surprises.",className:"anniversary",budget:300},
+  "Baby Shower":{title:"Little Wonders",subtitle:"Sweet wishes for a new beginning.",className:"baby",budget:500}
+};
+function initialData(){
+  const result={};
+  for(const [name,settings] of Object.entries(occasions)){
+    result[name]={
+      budget:settings.budget,
+      people:defaults.map(p=>({...p})),
+      gifts:[]
+    };
+  }
+  return result;
 }
-function money(n){return "$"+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:2})}
-function spent(name){return gifts.filter(g=>g.person===name&&g.bought).reduce((a,g)=>a+g.price,0)}
-function percentage(a,b){return Math.min(100,b>0?a/b*100:0)+"%"}
-function show(page){
-document.querySelectorAll("main section").forEach(s=>s.classList.add("hide"));
-document.getElementById(page).classList.remove("hide");
-if(page==="home")renderHome();
-if(page==="board")renderBoard();
-if(page==="budget")renderBudget();
-window.scrollTo(0,0);
+let data;
+try {
+  data=JSON.parse(localStorage.getItem(KEY))||initialData();
+} catch {
+  data=initialData();
+}
+for(const name of Object.keys(occasions)){
+  if(!data[name])data[name]=initialData()[name];
+}
+let occasion="Christmas";
+let selected=0;
+let currentView="home";
+
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(data));
+}
+function state(){
+  return data[occasion];
+}
+function money(n){
+  return "$"+Number(n||0).toLocaleString("en-US",{
+    minimumFractionDigits:0,
+    maximumFractionDigits:2
+  });
+}
+function purchased(person){
+  return state().gifts
+    .filter(g=>g.bought&&(!person||g.person===person))
+    .reduce((sum,g)=>sum+Number(g.price),0);
+}
+function percent(value,total){
+  return Math.min(100,total>0?value/total*100:0)+"%";
+}
+function make(tag,text,className){
+  const el=document.createElement(tag);
+  if(text!==undefined)el.textContent=text;
+  if(className)el.className=className;
+  return el;
+}
+function show(view){
+  currentView=view;
+  document.querySelectorAll(".view").forEach(el=>{
+    el.classList.toggle("active",el.id===view);
+  });
+  if(view==="home")renderHome();
+  if(view==="board")renderBoard();
+  if(view==="budgetView")renderBudget();
+  window.scrollTo(0,0);
 }
 function renderHome(){
-const sum=gifts.filter(g=>g.bought).reduce((a,g)=>a+g.price,0);
-document.getElementById("totalBudget").textContent=money(total);
-document.getElementById("totalSpent").textContent=money(sum)+" purchased · "+money(Math.max(0,total-sum))+" remaining";
-document.getElementById("totalBar").style.width=percentage(sum,total);
-const grid=document.getElementById("people");
-grid.replaceChildren();
-people.forEach((p,i)=>{
-const card=document.createElement("div");
-card.className="person";
-const img=document.createElement("img");
-img.src=p.photo;img.alt="Gift board";img.onerror=()=>{img.style.display="none"};
-const info=document.createElement("div");info.className="info";
-const h=document.createElement("h3");h.textContent=p.name;
-const desc=document.createElement("p");desc.textContent=money(spent(p.name))+" of "+money(p.budget)+" spent";
-info.append(h,desc);card.append(img,info);
-card.onclick=()=>{selected=i;show("board")};
-grid.append(card);
-});
+  const s=state();
+  const spent=purchased();
+  $("homeBudget").textContent=money(s.budget);
+  $("homeSpent").textContent=
+    money(spent)+" purchased · "+
+    money(Math.max(0,s.budget-spent))+" remaining";
+  $("homeFill").style.width=percent(spent,s.budget);
+
+  const area=$("boards");
+  area.replaceChildren();
+
+  s.people.forEach((person,index)=>{
+    const card=make("button",undefined,"tile");
+    const img=make("img");
+    img.src=person.photo;
+    img.alt="Gift board";
+    img.loading="lazy";
+    img.onerror=()=>img.style.display="none";
+
+    const detail=make("div",undefined,"detail");
+    detail.append(
+      make("strong",person.name),
+      make("small",money(purchased(person.name))+
+        " of "+money(person.budget)+" spent")
+    );
+    card.append(img,detail);
+    card.onclick=()=>{
+      selected=index;
+      show("board");
+    };
+    area.append(card);
+  });
 }
 function renderBoard(){
-const p=people[selected];
-document.getElementById("boardTitle").textContent=p.name+"'s Gift Board";
-document.getElementById("personBudget").textContent=money(p.budget);
-document.getElementById("personSpent").textContent=money(spent(p.name))+" purchased";
-document.getElementById("personBar").style.width=percentage(spent(p.name),p.budget);
-const grid=document.getElementById("giftGrid");grid.replaceChildren();
-gifts.filter(g=>g.person===p.name).forEach(g=>{
-const card=document.createElement("div");card.className="gift";
-if(g.image&&/^https:\/\//i.test(g.image)){
-const img=document.createElement("img");img.src=g.image;img.alt=g.name;card.append(img);
-}
-const info=document.createElement("div");info.className="info";
-const title=document.createElement("h3");title.textContent=g.name;
-const price=document.createElement("p");price.textContent=money(g.price)+(g.bought?" · ✓ Purchased":"");
-info.append(title,price);
-if(g.link&&/^https?:\/\//i.test(g.link)){
-const link=document.createElement("a");link.href=g.link;link.target="_blank";link.rel="noopener noreferrer";link.textContent="View at store";info.append(link);
-}
-const toggle=document.createElement("button");toggle.className="smallbtn";
-toggle.textContent=g.bought?"Mark not purchased":"Mark purchased";
-toggle.onclick=()=>{g.bought=!g.bought;persist();renderBoard()};
-const remove=document.createElement("button");remove.className="secondary smallbtn";remove.textContent="Remove";
-remove.onclick=()=>{if(confirm("Remove this gift?")){gifts=gifts.filter(x=>x.id!==g.id);persist();renderBoard()}};
-info.append(toggle,remove);card.append(info);grid.append(card);
-});
-if(!grid.children.length){const p=document.createElement("p");p.className="small";p.textContent="No gifts yet. Add the first little wish!";grid.append(p)}
+  const person=state().people[selected];
+  if(!person){
+    selected=0;
+    show("home");
+    return;
+  }
+  $("boardName").textContent=person.name+"'s Gift Board";
+  $("recipientBudget").textContent=money(person.budget);
+  $("recipientSpent").textContent=
+    money(purchased(person.name))+" purchased";
+  $("recipientFill").style.width=
+    percent(purchased(person.name),person.budget);
+
+  const area=$("gifts");
+  area.replaceChildren();
+
+  const items=state().gifts.filter(g=>g.person===person.name);
+  if(!items.length){
+    area.append(make("p","No gifts yet. Add the first little wish!","empty"));
+  }
+
+  items.forEach(g=>{
+    const card=make("article",undefined,"gift");
+    if(g.image&&/^https:\/\//i.test(g.image)){
+      const img=make("img");
+      img.src=g.image;
+      img.alt=g.name;
+      img.loading="lazy";
+      card.append(img);
+    }
+
+    const detail=make("div",undefined,"detail");
+    detail.append(
+      make("h3",g.name),
+      make("p",money(g.price)+(g.bought?" · ✓ Purchased":""))
+    );
+
+    if(g.link&&/^https?:\/\//i.test(g.link)){
+      const a=make("a","View at store");
+      a.href=g.link;
+      a.target="_blank";
+      a.rel="noopener noreferrer";
+      detail.append(a);
+    }
+
+    const toggle=make("button",
+      g.bought?"Mark not purchased":"Mark purchased");
+    toggle.onclick=()=>{
+      g.bought=!g.bought;
+      save();
+      renderBoard();
+    };
+
+    const remove=make("button","Remove","subbutton");
+    remove.onclick=()=>{
+      if(confirm("Remove this gift?")){
+        state().gifts=state().gifts.filter(item=>item.id!==g.id);
+        save();
+        renderBoard();
+      }
+    };
+
+    detail.append(toggle,remove);
+    card.append(detail);
+    area.append(card);
+  });
 }
 function newGift(){
-const select=document.getElementById("recipient");select.replaceChildren();
-people.forEach((p,i)=>{const o=document.createElement("option");o.value=i;o.textContent=p.name;select.append(o)});
-select.value=selected;show("add");
+  const select=$("giftRecipient");
+  select.replaceChildren();
+  state().people.forEach((person,index)=>{
+    const option=make("option",person.name);
+    option.value=index;
+    select.append(option);
+  });
+  select.value=selected;
+  show("add");
 }
-function saveGift(){
-const name=document.getElementById("giftName").value.trim();
-const raw=document.getElementById("giftPrice").value;
-const price=Number(raw);
-const link=document.getElementById("giftLink").value.trim();
-const image=document.getElementById("giftImage").value.trim();
-if(!name||raw===""||!Number.isFinite(price)||price<0){alert("Enter a gift name and valid price.");return}
-if(link&&!/^https?:\/\/\S+$/i.test(link)){alert("Enter a valid shopping URL.");return}
-if(image&&!/^https:\/\/\S+$/i.test(image)){alert("Image links must begin with https://");return}
-selected=Number(document.getElementById("recipient").value);
-gifts.push({id:Date.now()+"-"+Math.random(),name,price,link,image,person:people[selected].name,bought:false});
-persist();
-["giftName","giftPrice","giftLink","giftImage"].forEach(id=>document.getElementById(id).value="");
-show("board");
+function addGift(event){
+  event.preventDefault();
+
+  const name=$("giftName").value.trim();
+  const price=Number($("giftPrice").value);
+  const link=$("giftLink").value.trim();
+  const image=$("giftImage").value.trim();
+  const index=Number($("giftRecipient").value);
+
+  if(!name||!Number.isFinite(price)||price<0||
+     !state().people[index]){
+    alert("Please enter a valid gift name, price and recipient.");
+    return;
+  }
+
+  state().gifts.push({
+    id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),
+    name,price,link,image,
+    person:state().people[index].name,
+    bought:false
+  });
+
+  selected=index;
+  save();
+  $("giftForm").reset();
+  show("board");
 }
-function editTotal(){
-const v=prompt("Total family budget ($)",total);
-if(v!==null&&v.trim()!==""&&Number.isFinite(Number(v))&&Number(v)>=0){total=Number(v);persist();renderHome()}
-}
-function editBudget(){
-const p=people[selected];const v=prompt("Budget for "+p.name+" ($)",p.budget);
-if(v!==null&&v.trim()!==""&&Number.isFinite(Number(v))&&Number(v)>=0){p.budget=Number(v);persist();renderBoard()}
+function editNumber(label,current,callback){
+  const value=prompt(label,current);
+  if(value===null)return;
+  const number=Number(value);
+  if(value.trim()===""||!Number.isFinite(number)||number<0){
+    alert("Please enter a valid amount.");
+    return;
+  }
+  callback(number);
+  save();
+  show(currentView);
 }
 function addPerson(){
-const name=prompt("Family member's name?");
-if(!name||!name.trim())return;
-if(people.some(p=>p.name.toLowerCase()===name.trim().toLowerCase())){alert("That name already exists.");return}
-people.push({name:name.trim(),budget:100,photo:"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500"});
-persist();renderHome();
+  const name=prompt("Family member's name?");
+  if(!name||!name.trim())return;
+  if(state().people.some(p=>
+    p.name.toLowerCase()===name.trim().toLowerCase())){
+    alert("That person is already on this list.");
+    return;
+  }
+  state().people.push({
+    name:name.trim(),
+    budget:100,
+    photo:"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500"
+  });
+  save();
+  renderHome();
 }
 function renderBudget(){
-const sum=gifts.filter(g=>g.bought).reduce((a,g)=>a+g.price,0);
-document.getElementById("budgetTotal").textContent=money(total);
-document.getElementById("budgetBar").style.width=percentage(sum,total);
-document.getElementById("budgetSummary").textContent=money(sum)+" spent · "+money(Math.max(0,total-sum))+" remaining";
-const area=document.getElementById("budgetPeople");area.replaceChildren();
-people.forEach(p=>{
-const row=document.createElement("div");row.className="panel";
-const title=document.createElement("strong");title.textContent=p.name;
-const desc=document.createElement("p");desc.className="small";desc.textContent=money(spent(p.name))+" / "+money(p.budget);
-const bar=document.createElement("div");bar.className="progress";
-const fill=document.createElement("div");fill.style.width=percentage(spent(p.name),p.budget);bar.append(fill);
-row.append(title,desc,bar);area.append(row);
-});
+  const s=state();
+  const spent=purchased();
+  $("budgetHeading").textContent="Our "+occasion+" Budget";
+  $("budgetAmount").textContent=money(s.budget);
+  $("budgetSpent").textContent=
+    money(spent)+" spent · "+
+    money(Math.max(0,s.budget-spent))+" remaining";
+  $("budgetFill").style.width=percent(spent,s.budget);
+
+  const area=$("budgetRows");
+  area.replaceChildren();
+  s.people.forEach(person=>{
+    const card=make("div",undefined,"panel");
+    const bar=make("div",undefined,"bar");
+    const fill=make("div",undefined,"fill");
+    fill.style.width=percent(purchased(person.name),person.budget);
+    bar.append(fill);
+    card.append(
+      make("strong",person.name),
+      make("p",money(purchased(person.name))+
+        " / "+money(person.budget),"muted"),
+      bar
+    );
+    area.append(card);
+  });
 }
-function setTheme(){
-occasion=document.getElementById("occasion").value;
-const themes={
-Christmas:["🎄 Christmas Wishes","#173d30","#8d2735"],
-Birthday:["🎂 Birthday Wishes","#735487","#d6a1c5"],
-Anniversary:["❤️ Anniversary Wishes","#793f4e","#c89a80"],
-"Baby Shower":["🍼 Baby Shower Wishes","#65877b","#d9b7b7"]
+function changeOccasion(){
+  occasion=$("occasionSelect").value;
+  const config=occasions[occasion];
+  $("app").className="app "+config.className;
+  $("occasionTitle").textContent=config.title;
+  $("occasionSubtitle").textContent=config.subtitle;
+  selected=0;
+  show("home");
+}
+$("occasionSelect").addEventListener("change",changeOccasion);
+$("editTotal").onclick=()=>editNumber(
+  "Total "+occasion+" budget ($)",
+  state().budget,
+  n=>state().budget=n
+);
+$("editRecipientBudget").onclick=()=>{
+  const person=state().people[selected];
+  editNumber(
+    "Budget for "+person.name+" ($)",
+    person.budget,
+    n=>person.budget=n
+  );
 };
-const t=themes[occasion];
-document.getElementById("heading").textContent=t[0];
-document.documentElement.style.setProperty("--green",t[1]);
-document.documentElement.style.setProperty("--red",t[2]);
-}
-show("home");
+$("addPerson").onclick=addPerson;
+$("backHome").onclick=()=>show("home");
+$("backBoard").onclick=()=>show("board");
+$("addGiftFromBoard").onclick=newGift;
+$("giftForm").addEventListener("submit",addGift);
+$("navHome").onclick=()=>show("home");
+$("navBoards").onclick=()=>show("board");
+$("navAdd").onclick=newGift;
+$("navBudget").onclick=()=>show("budgetView");
+changeOccasion();
 </script>
 </body>
 </html>
+
 
