@@ -821,6 +821,33 @@ show("home");
   }
 }
 </style>
+<style>
+/* Approved Christmas header artwork */
+.app:not(.birthday):not(.anniversary):not(.baby) .hero {
+  background-image: url("./419601FA-B3A0-497D-A5F8-7FC706A2862E.png") !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  min-height: 355px;
+  padding-top: 105px;
+}
+
+/* Remove the old CSS decorations */
+.app:not(.birthday):not(.anniversary):not(.baby) .hero::before,
+.app:not(.birthday):not(.anniversary):not(.baby) .hero::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Keep the heading readable */
+.app:not(.birthday):not(.anniversary):not(.baby) .hero h1,
+.app:not(.birthday):not(.anniversary):not(.baby) .hero .eyebrow,
+.app:not(.birthday):not(.anniversary):not(.baby) .hero p {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 9px #001c12;
+}
+</style>
 </body>
 </html>
 
