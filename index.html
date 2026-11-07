@@ -985,6 +985,34 @@ show("home");
 }
 </style>
 </body>
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const raw = params.get("url") ||
+              params.get("link") ||
+              params.get("text") || "";
+
+  const match = raw.match(/https?:\/\/[^\s<>"']+/i);
+  if (!match) return;
+
+  let link;
+  try {
+    link = new URL(match[0]).href;
+  } catch {
+    return;
+  }
+
+  newGift();
+  document.getElementById("giftLink").value = link;
+
+  const clean = new URL(location.href);
+  ["url", "link", "text"].forEach(k =>
+    clean.searchParams.delete(k)
+  );
+  history.replaceState(null, "", clean.pathname +
+    clean.search + clean.hash);
+})();
+</script>
 </html>
 
 
