@@ -1013,6 +1013,114 @@ show("home");
     clean.search + clean.hash);
 })();
 </script>
+
+<script>
+/* Family Gift Hub — automatic product import */
+(function () {
+  const linkInput = document.getElementById("giftLink");
+  const nameInput = document.getElementById("giftName");
+  const priceInput = document.getElementById("giftPrice");
+  const imageInput = document.getElementById("giftImage");
+
+  const status = document.createElement("p");
+  status.style.fontSize = "12px";
+  status.style.margin = "8px 0";
+  status.setAttribute("role", "status");
+  linkInput.parentElement.appendChild(status);
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "subbutton";
+  button.textContent = "Get Product Details";
+  linkInput.parentElement.appendChild(button);
+
+  let lastLink = "";
+  let requestNumber = 0;
+
+  async function importProduct() {
+    const link = linkInput.value.trim();
+    if (!link || !/^https?:\/\//i.test(link)) return;
+
+    const currentRequest = ++requestNumber;
+    lastLink = link;
+    button.disabled = true;
+    status.textContent = "Looking up product details...";
+
+    try {
+      const response = await fetch(
+        "/api/product?url=" + encodeURIComponent(link)
+      );
+      if (!response.ok) throw new Error("Lookup unavailable");
+
+      const product = await response.json();
+
+      if (currentRequest !== requestNumber ||
+          linkInput.value.trim() !== link) return;
+
+      let filled = 0;
+
+      if (product.name && !nameInput.value.trim()) {
+        nameInput.value = product.name;
+        filled++;
+      }
+      if (product.price !== null &&
+          product.price !== undefined &&
+          priceInput.value === "") {
+        priceInput.value = product.price;
+        filled++;
+      }
+      if (product.image && !imageInput.value.trim()) {
+        imageInput.value = product.image;
+        filled++;
+      }
+
+      status.textContent = filled
+        ? "Product details added! Review before saving."
+        : "Details weren't available. You can enter them manually.";
+    } catch {
+      status.textContent =
+        "Automatic lookup unavailable. You can still save this gift manually.";
+    } finally {
+      if (currentRequest === requestNumber) {
+        button.disabled = false;
+      }
+    }
+  }
+
+  button.addEventListener("click", () => {
+    lastLink = "";
+    importProduct();
+  });
+
+  linkInput.addEventListener("input", () => {
+    requestNumber++;
+    lastLink = "";
+    status.textContent = "";
+    button.disabled = false;
+  });
+
+  const observer = new MutationObserver(() => {
+    if (!document.getElementById("add")
+          .classList.contains("active")) return;
+
+    const link = linkInput.value.trim();
+    if (link && link !== lastLink) importProduct();
+  });
+
+  observer.observe(document.getElementById("add"), {
+    attributes: true,
+    attributeFilter: ["class"]
+  });
+
+  if (document.getElementById("add")
+      .classList.contains("active") &&
+      linkInput.value.trim()) {
+    importProduct();
+  }
+})();
+</script>
+  
+</body>
 </html>
 
 
