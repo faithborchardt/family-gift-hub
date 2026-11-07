@@ -859,6 +859,46 @@ show("home");
   margin-top: 0;
 }
 </style>
+<style>
+/* Approved Birthday Wishes artwork */
+.app.birthday .hero {
+  background-image:
+    url("./32E4E8D6-2BE2-4EA0-8092-9CD0977F3FF5.png") !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+
+  min-height: 395px !important;
+  padding-top: 145px !important;
+  border-bottom: 3px solid #e8ad4e;
+}
+
+/* Remove the old birthday emoji decorations */
+.app.birthday .hero::before,
+.app.birthday .hero::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Make the text readable over the light background */
+.app.birthday .hero h1 {
+  color: #55347f !important;
+  text-shadow: 0 2px 10px #fff8ec;
+}
+
+.app.birthday .hero .eyebrow,
+.app.birthday .hero p {
+  color: #493b58 !important;
+  text-shadow: 0 1px 8px #fff8ec;
+}
+
+.app.birthday .hero select {
+  background: #fffaf1;
+  color: #49336c;
+  border: 1px solid #e3b965;
+  box-shadow: 0 4px 14px #47311c25;
+}
+</style>
 </body>
 </html>
 
