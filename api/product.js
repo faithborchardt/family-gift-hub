@@ -64,7 +64,18 @@ export async function GET(request) {
   const html=new TextDecoder().decode(Buffer.concat(chunks.map(x=>Buffer.from(x))));
   const meta=tags(html), p=productJson(html);
   const offers=Array.isArray(p?.offers)?p.offers[0]:p?.offers;
-  const price=cleanPrice(offers?.price ?? offers?.lowPrice ?? meta['product:price:amount'] ?? meta['og:price:amount']);
+
+const price = cleanPrice(
+  offers?.price ??
+  offers?.lowPrice ??
+  meta['product:price:amount'] ??
+  meta['og:price:amount'] ??
+  meta['twitter:data1'] ??
+  html.match(/"current_retail"\s*:\s*([0-9.]+)/i)?.[1] ??
+  html.match(/"formatted_current_price"\s*:\s*"\$?([0-9,.]+)"/i)?.[1] ??
+  html.match(/"price"\s*:\s*\{\s*"current_retail"\s*:\s*([0-9.]+)/i)?.[1]
+);
+
   let name=String(p?.name || meta['og:title'] || meta['twitter:title'] || '').trim();
   if(!name){const t=html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);name=t?decode(t[1]):'';}
   let image=firstImage(p?.image)||meta['og:image']||meta['twitter:image']||'';
