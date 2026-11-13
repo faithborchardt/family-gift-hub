@@ -63,6 +63,19 @@ export async function GET(request) {
   if(reader) {while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>1500000){await reader.cancel();break;}chunks.push(value);}}
   const html=new TextDecoder().decode(Buffer.concat(chunks.map(x=>Buffer.from(x))));
   const meta=tags(html), p=productJson(html);
+   
+if (new URL(request.url).searchParams.get('debug') === '1') {
+  return Response.json({
+    htmlLength: html.length,
+    hasProductJson: !!p,
+    priceKeywords: {
+      currentRetail: /current_retail/i.test(html),
+      formattedCurrentPrice: /formatted_current_price/i.test(html),
+      productPrice: /product:price:amount/i.test(html),
+      dollarAmount: /\$\s*\d+\.\d{2}/.test(html)
+    }
+  });
+}
   const offers=Array.isArray(p?.offers)?p.offers[0]:p?.offers;
 
 const price = cleanPrice(
